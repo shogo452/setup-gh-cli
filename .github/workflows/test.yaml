@@ -1,0 +1,60 @@
+name: Test
+
+on:
+  push:
+    # branches:
+    #   - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  linux:
+    runs-on:
+      - ${{ vars.CODEBUILD_HOSTED_GHA_PROJECT }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - image:linux-5.0
+      - instance-size:small
+    steps:
+      - name: Setup GitHub CLI
+        uses: shogo452/setup-gh-cli@feature/shogo/add-yamls
+        with:
+          ARCH: amd64
+  arm:
+    runs-on:
+      - ${{ vars.CODEBUILD_HOSTED_GHA_PROJECT }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - image:arm-3.0
+      - instance-size:small
+    steps:
+      - name: Setup GitHub CLI
+        uses: shogo452/setup-gh-cli@feature/shogo/add-yamls
+        with:
+          ARCH: arm64
+  ubuntu:
+    runs-on:
+      - ${{ vars.CODEBUILD_HOSTED_GHA_PROJECT }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - image:ubuntu-7.0
+      - instance-size:small
+    steps:
+      - name: Setup GitHub CLI
+        uses: shogo452/setup-gh-cli@feature/shogo/add-yamls
+        with:
+          ARCH: amd64
+  linux-lambda:
+    runs-on:
+      - ${{ vars.CODEBUILD_HOSTED_GHA_PROJECT }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - image:linux-lambda-nodejs20
+      - instance-size:1GB
+    steps:
+      - name: Setup GitHub CLI
+        uses: shogo452/setup-gh-cli@feature/shogo/add-yamls
+        with:
+          ARCH: amd64
+  arm-lambda:
+    runs-on:
+      - ${{ vars.CODEBUILD_HOSTED_GHA_PROJECT }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - image:arm-lambda-nodejs20
+      - instance-size:1GB
+    steps:
+      - name: Setup GitHub CLI
+        uses: shogo452/setup-gh-cli@feature/shogo/add-yamls
+        with:
+          ARCH: arm64
