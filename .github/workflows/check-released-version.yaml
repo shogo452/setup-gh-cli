@@ -11,4 +11,4 @@ jobs:
       - instance-size:small
     steps:
       - name: Setup GitHub CLI
-        uses: shogo452/setup-gh-cli@1.0.4
+        uses: shogo452/setup-gh-cli@v1.0.4
