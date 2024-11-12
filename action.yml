@@ -1,0 +1,55 @@
+name: 'Setup GitHub CLI'
+author: "shogo452"
+description: 'Custom Action to install GitHub CLI for CodeBuild-hosted GitHub Actions runner'
+
+branding:
+  icon: 'settings'
+  color: 'blue'
+
+inputs:
+  GH_VERSION:
+    description: 'GitHub CLI version'
+    required: true
+    default: 2.60.1
+  ARCH:
+    description: 'Architecture'
+    required: true
+    default: amd64
+
+runs:
+  using: composite
+  steps:
+    - name: Install GitHub CLI
+      shell: bash
+      env:
+        GH_VERSION: ${{ inputs.GH_VERSION }}
+        ARCH: ${{ inputs.ARCH }}
+      run: |
+        # Validate version number
+        if ! [[ $GH_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          echo "Invalid version number: $GH_VERSION"
+          exit 1
+        fi
+
+        # Validate architecture
+        valid_archs=("amd64" "arm64")
+        if ! [[ "${valid_archs[@]}" =~ "${ARCH}" ]]; then
+          echo "Invalid architecture: $ARCH"
+          exit 1
+        fi
+
+        # Download and extract gh
+        DOWNLOAD_URL="https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_${ARCH}.tar.gz"
+        EXTRACT_DIR="gh_${GH_VERSION}_linux_${ARCH}"
+
+        wget "$DOWNLOAD_URL" -P /tmp
+        tar -xzf "/tmp/gh_${GH_VERSION}_linux_${ARCH}.tar.gz" -C /tmp
+        mkdir -p /tmp/gh-cli
+        cp "/tmp/${EXTRACT_DIR}/bin/gh" /tmp/gh-cli/
+        chmod +x /tmp/gh-cli/gh
+        echo "/tmp/gh-cli" >> $GITHUB_PATH
+
+    - name: Check gh version
+      shell: bash
+      run: |
+        gh version
