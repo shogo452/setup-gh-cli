@@ -1,0 +1,14 @@
+name: Check released version
+
+on:
+  workflow_dispatch:
+
+jobs:
+  linux:
+    runs-on:
+      - ${{ vars.CODEBUILD_HOSTED_GHA_PROJECT }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - image:linux-5.0
+      - instance-size:small
+    steps:
+      - name: Setup GitHub CLI
+        uses: shogo452/setup-gh-cli@1.0.3
