@@ -3,7 +3,7 @@ author: "shogo452"
 description: 'Action to install GitHub CLI for CodeBuild-hosted GitHub Actions runner'
 
 branding:
-  icon: 'settings'
+  icon: 'arrow-down'
   color: 'blue'
 
 inputs:
