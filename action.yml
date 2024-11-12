@@ -1,6 +1,6 @@
-name: 'Setup GitHub CLI'
+name: 'Setup GitHub CLI for CodeBuild-hosted GitHub Actions runner'
 author: "shogo452"
-description: 'Custom Action to install GitHub CLI for CodeBuild-hosted GitHub Actions runner'
+description: 'Action to install GitHub CLI for CodeBuild-hosted GitHub Actions runner'
 
 branding:
   icon: 'settings'
