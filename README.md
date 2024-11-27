@@ -9,10 +9,10 @@ Please refer to the [release page](https://github.com/shogo452/setup-gh-cli/rele
 ## Usage
 
 ```yaml
-- uses: shogo452/setup-gh-cli@v1.0.3
+- uses: shogo452/setup-gh-cli@v1.0.6
   with:
     # Github CLI version
-    # Default 2.61.0
+    # Default 2.63.0
     GH_VERSION: ''
 
     # Archtecture
@@ -23,18 +23,18 @@ Please refer to the [release page](https://github.com/shogo452/setup-gh-cli/rele
 
 ## Scenarios
 
-### Use previous version
+### Use amd64 archtecture
 
 ```yaml
-- uses: shogo452/setup-gh-cli@v1.0.3
+- uses: shogo452/setup-gh-cli@v1.0.6
   with:
     ARCH: arm64
 ```
 
-### Use amd64 archtecture
+### Use previous version
 
 ```yaml
-- uses: shogo452/setup-gh-cli@v1.0.3
+- uses: shogo452/setup-gh-cli@v1.0.6
   with:
-    GH_VERSION: 2.60.1
+    GH_VERSION: 2.62.0
 ```

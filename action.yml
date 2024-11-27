@@ -10,7 +10,7 @@ inputs:
   GH_VERSION:
     description: 'GitHub CLI version'
     required: true
-    default: 2.62.0
+    default: 2.63.0
   ARCH:
     description: 'Architecture'
     required: true
