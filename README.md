@@ -12,12 +12,12 @@ Please refer to the [release page](https://github.com/shogo452/setup-gh-cli/rele
 - uses: shogo452/setup-gh-cli@v1.0.7
   with:
     # Github CLI version
-    # Default 2.63.2
+    # Default: Latest Version
     GH_VERSION: ''
 
     # Archtecture
     # Options are 'arm64' and 'amd64'.
-    # Default amd64
+    # Default: amd64
     ARCH: ''
 ```
 
