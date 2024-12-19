@@ -15,7 +15,7 @@ jobs:
       - instance-size:small
     steps:
       - name: Setup GitHub CLI
-        uses: shogo452/setup-gh-cli@main
+        uses: shogo452/setup-gh-cli@${{ github.ref }}
         with:
           ARCH: amd64
   arm:
@@ -25,7 +25,7 @@ jobs:
       - instance-size:small
     steps:
       - name: Setup GitHub CLI
-        uses: shogo452/setup-gh-cli@main
+        uses: shogo452/setup-gh-cli@${{ github.ref }}
         with:
           ARCH: arm64
   ubuntu:
@@ -35,7 +35,7 @@ jobs:
       - instance-size:small
     steps:
       - name: Setup GitHub CLI
-        uses: shogo452/setup-gh-cli@main
+        uses: shogo452/setup-gh-cli@${{ github.ref }}
         with:
           ARCH: amd64
   linux-lambda:
@@ -45,7 +45,7 @@ jobs:
       - instance-size:1GB
     steps:
       - name: Setup GitHub CLI
-        uses: shogo452/setup-gh-cli@main
+        uses: shogo452/setup-gh-cli@${{ github.ref }}
         with:
           ARCH: amd64
   arm-lambda:
@@ -55,7 +55,7 @@ jobs:
       - instance-size:1GB
     steps:
       - name: Setup GitHub CLI
-        uses: shogo452/setup-gh-cli@main
+        uses: shogo452/setup-gh-cli@${{ github.ref }}
         with:
           ARCH: arm64
   specific-gh-version:
@@ -65,7 +65,7 @@ jobs:
       - instance-size:small
     steps:
       - name: Setup GitHub CLI
-        uses: shogo452/setup-gh-cli@main
+        uses: shogo452/setup-gh-cli@${{ github.ref }}
         with:
           ARCH: amd64
           GH_VERSION: 2.62.0
