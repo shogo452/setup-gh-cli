@@ -8,14 +8,13 @@ branding:
 
 inputs:
   GH_VERSION:
-    description: 'GitHub CLI version'
-    required: true
-    default: 2.63.0
+    description: 'GitHub CLI version (optional, latest version will be used if not specified)'
+    required: false
+    default: ''
   ARCH:
     description: 'Architecture'
     required: true
     default: amd64
-
 runs:
   using: composite
   steps:
@@ -25,6 +24,22 @@ runs:
         GH_VERSION: ${{ inputs.GH_VERSION }}
         ARCH: ${{ inputs.ARCH }}
       run: |
+        # Get the version number
+        if [ -z "$GH_VERSION" ]; then
+          echo "No version specified, fetching latest release version..."
+          LATEST_VERSION=$(curl -s "https://api.github.com/repos/cli/cli/releases" | \
+            grep -Po '"tag_name": "v\K[0-9]+\.[0-9]+\.[0-9]+(?=")' | \
+            grep -vE "(rc|alpha|beta|preview)" | \
+            head -n1)
+
+          if [ -z "$LATEST_VERSION" ]; then
+            echo "Failed to fetch latest stable version"
+            exit 1
+          fi
+          GH_VERSION=$LATEST_VERSION
+          echo "Latest stable version: $GH_VERSION"
+        fi
+
         # Validate version number
         if ! [[ $GH_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
           echo "Invalid version number: $GH_VERSION"
@@ -41,7 +56,6 @@ runs:
         # Download and extract gh
         DOWNLOAD_URL="https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_${ARCH}.tar.gz"
         EXTRACT_DIR="gh_${GH_VERSION}_linux_${ARCH}"
-
         wget "$DOWNLOAD_URL" -P /tmp
         tar -xzf "/tmp/gh_${GH_VERSION}_linux_${ARCH}.tar.gz" -C /tmp
         mkdir -p /tmp/gh-cli
